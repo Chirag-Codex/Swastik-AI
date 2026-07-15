@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "framework": "vite",
+  "buildCommand": "cd \"medassit React/swastik-ai-frontend\" && npm install && npm run build",
+  "outputDirectory": "medassit React/swastik-ai-frontend/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
