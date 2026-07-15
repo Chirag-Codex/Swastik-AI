@@ -1,0 +1,389 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+/* ===========================================
+   Apothecary Tray — design tokens
+   =========================================== */
+:root {
+  --bg-page: #FAFAF8;
+  --bg-grid: #EFEEE8;
+  --bg-card: #FFFFFF;
+  --bg-card-active: #FFF4E6;
+  --border: #E4E2DB;
+  --border-dashed: #D8D5CA;
+  --border-dashed-active: #F0C48A;
+
+  --text-primary: #1A1D29;
+  --text-secondary: #8A8677;
+
+  --accent: #E8871E;
+  --accent-dark: #B5620C;
+  --accent-soft: #FFF4E6;
+
+  --success: #1B9C85;
+  --success-soft: #E3F5F1;
+  --danger: #D64545;
+  --danger-soft: #FCEBEB;
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'IBM Plex Sans', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-page);
+  background-image:
+    linear-gradient(var(--bg-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: var(--text-primary);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-page);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-dashed);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+button, a, input, textarea {
+  transition: all 0.2s ease;
+}
+
+/* ===========================================
+   Layout
+   =========================================== */
+.container-custom {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* ===========================================
+   Typography helpers
+   =========================================== */
+.heading {
+  font-family: var(--font-display);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-accent {
+  color: var(--accent-dark);
+}
+
+.eyebrow {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+}
+
+/* ===========================================
+   Buttons
+   =========================================== */
+.btn-primary {
+  min-height: 44px;
+  padding: 12px 24px;
+  background-color: var(--accent);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.05);
+}
+.btn-primary:active:not(:disabled) {
+  transform: scale(0.97);
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  min-height: 40px;
+  padding: 10px 18px;
+  background-color: #FFFFFF;
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+}
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent-dark);
+}
+
+.btn-ghost-danger {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 6px 4px;
+}
+.btn-ghost-danger:hover {
+  color: var(--danger);
+}
+
+/* ===========================================
+   Icon chip
+   =========================================== */
+.icon-chip {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-size: 17px;
+  flex-shrink: 0;
+}
+.icon-chip:hover {
+  color: var(--text-primary);
+  border-color: var(--border-dashed);
+}
+.icon-chip--accent {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: #FFFFFF;
+}
+
+/* ===========================================
+   Label card — the signature "prescription label" surface
+   =========================================== */
+.label-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px 4px 12px 12px;
+}
+.label-card--due {
+  border: 1.5px solid var(--accent);
+}
+.label-card__perf {
+  border-bottom: 1px dashed var(--border-dashed);
+  margin: 0 10px;
+}
+.label-card--due .label-card__perf {
+  border-bottom-color: var(--border-dashed-active);
+}
+.label-card__body {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+}
+
+/* ===========================================
+   Week tray — the signature pill-organizer layout
+   =========================================== */
+.week-tray {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+.day-cell {
+  flex: 1;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 4px;
+  text-align: center;
+}
+.day-cell--active {
+  background-color: var(--bg-card-active);
+  border: 1.5px solid var(--accent);
+}
+.day-cell__label {
+  font-size: 10px;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  margin-bottom: 6px;
+}
+.day-cell--active .day-cell__label {
+  color: var(--accent-dark);
+  font-weight: 600;
+}
+.day-cell__dots {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  flex-wrap: wrap;
+}
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  border: 1px solid #C9C6BB;
+  display: inline-block;
+}
+.dot--filled {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ===========================================
+   Stat tape — the adherence summary strip
+   =========================================== */
+.stat-tape {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+}
+.stat-tape__num {
+  font-family: var(--font-mono);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+.stat-tape__divider {
+  flex: 1;
+  min-width: 0;
+  border-left: 1px solid var(--border);
+  padding-left: 14px;
+}
+
+/* ===========================================
+   Inputs
+   =========================================== */
+.input-field {
+  padding: 12px 16px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text-primary);
+  font-size: 16px;
+  min-height: 44px;
+  font-family: var(--font-body);
+  width: 100%;
+}
+.input-field:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.input-field::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.75;
+}
+
+/* ===========================================
+   Status badges
+   =========================================== */
+.badge-success {
+  color: var(--success);
+}
+.badge-danger {
+  color: var(--danger);
+}
+.pill-taken {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background-color: var(--success-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.pill-taken .ti {
+  color: var(--success);
+  font-size: 16px;
+}
+
+/* ===========================================
+   Empty states
+   =========================================== */
+.empty-badge {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background-color: var(--bg-card-active);
+  border: 1px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+.empty-badge .ti {
+  font-size: 26px;
+  color: var(--accent-dark);
+}
+
+/* ===========================================
+   Motion
+   =========================================== */
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.rise-in {
+  animation: riseIn 0.35s ease both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rise-in { animation: none; }
+}
+
+@keyframes dotBounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-4px); }
+}
+.dot-bounce {
+  animation: dotBounce 1s ease infinite;
+}
