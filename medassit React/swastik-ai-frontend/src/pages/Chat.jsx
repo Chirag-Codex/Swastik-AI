@@ -46,18 +46,31 @@ function Chat() {
 
   const handleSend = async () => {
     if (!input.trim() && !mediaFile) return;
+
+    // Capture current values before clearing, since state updates are async
+    const textToSend = input;
+    const fileToSend = mediaFile;
+    const previewToSend = mediaPreview;
+
+    // Clear the input UI immediately — don't wait for the network round-trip
+    setInput('');
+    setMediaFile(null);
+    setMediaPreview(null);
+
     try {
-      if (mediaFile) {
-       
-        await dispatch(sendMedia(mediaFile, input, mediaPreview));
-        setMediaFile(null);
-        setMediaPreview(null);
+      if (fileToSend) {
+        await dispatch(sendMedia(fileToSend, textToSend, previewToSend));
       } else {
-        await dispatch(sendMessage(input));
+        await dispatch(sendMessage(textToSend));
       }
-      setInput('');
     } catch (error) {
       console.error('Send message error:', error);
+      // Restore what the user typed/attached so it isn't silently lost
+      setInput(textToSend);
+      if (fileToSend) {
+        setMediaFile(fileToSend);
+        setMediaPreview(previewToSend);
+      }
     }
   };
 
@@ -120,6 +133,10 @@ function Chat() {
       return;
     }
 
+    // Capture and clear immediately so the textarea doesn't hold stale text
+    const textToSend = input;
+    setInput('');
+
     recorder.onstop = async () => {
       stopStream();
       setIsRecording(false);
@@ -131,14 +148,13 @@ function Chat() {
         type: 'audio/webm',
       });
 
-    
       const audioUrl = URL.createObjectURL(audioBlob);
 
       try {
-        await dispatch(sendMedia(audioFile, input, audioUrl));
-        setInput('');
+        await dispatch(sendMedia(audioFile, textToSend, audioUrl));
       } catch (error) {
         console.error('Send voice message error:', error);
+        setInput(textToSend); // restore on failure
       }
     };
 

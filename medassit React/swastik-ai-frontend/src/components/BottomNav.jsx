@@ -7,8 +7,6 @@ const ITEMS = [
   { to: '/reminders', label: 'Reminders', Icon: TbClipboardList },
   { to: '/chat', label: 'Swastik', Icon: TbPill, isFab: true },
   { to: '/medicine-lookup', label: 'Lookup', Icon: TbSearch },
-  { to: '/profile', label: 'Profile', Icon: TbUserCircle },
-  // 1. Added Logout action metadata here
   { action: 'logout', label: 'Logout', Icon: TbLogout }, 
 ];
 
