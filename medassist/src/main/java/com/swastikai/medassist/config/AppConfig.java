@@ -24,7 +24,7 @@ import com.swastikai.medassist.security.JwtTokenValidator;
 @Configuration
 public class AppConfig {
 
-    @Value("${app.cors.allowed-origins:http://localhost:3000,http://localhost:5173,http://127.0.0.1:3000,http://127.0.0.1:5173}")
+    @Value("${app.cors.allowed-origins:http://localhost:3000,http://localhost:5173,http://127.0.0.1:3000,http://127.0.0.1:5173,https://swastik-ai-omega.vercel.app}")
     private String allowedOriginsConfig;
 
     @Bean
