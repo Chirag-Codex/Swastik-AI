@@ -32,16 +32,15 @@ public class AiService {
         this.audioConversionService = audioConversionService;
     }
 
- 
+
     public String chat(String userId, String message) {
         logger.info("Processing text chat for user: {}", userId);
-        return chatClient.prompt(new Prompt(message))
+        return chatClient.prompt()
                 .user(message)
                 .advisors(advisorSpec -> advisorSpec.param(ChatMemory.CONVERSATION_ID, userId))
                 .call()
                 .content();
     }
-
   
     public String chatWithMedia(String userId, String message, MultipartFile mediaFile) throws IOException {
         logger.info("Processing media chat for user: {}, file: {}, size: {} bytes, type: {}",
